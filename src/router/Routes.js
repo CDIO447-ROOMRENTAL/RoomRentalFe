@@ -25,7 +25,7 @@ export const routes = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthPage></AuthPage>,
-    errorElement: <Error404></Error404>,
+    // errorElement: <Error404></Error404>,
     children: [
       {
         path: "login",
