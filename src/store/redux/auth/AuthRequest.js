@@ -9,6 +9,7 @@ export const loginRequest = async (dispatch, loginForm) => {
     console.log(loginForm);
     const response = await fetch(`${auth.login}`, {
       method: 'POST',
+      credentials: "include", // Include credentials to send cookies
       headers: {
         'Content-Type': 'application/json',
       },
@@ -17,15 +18,8 @@ export const loginRequest = async (dispatch, loginForm) => {
 
     if (response.ok) {
       const data = await response.json();
-      await setCookie({name: "accessToken", value:data.accessToken});
-
       dispatch(
-        loginSuccess({
-          name: data.name,
-          username: data.username,
-          email: data.email,
-          roles: data.roles,
-        })
+        loginSuccess(data)
       );
 
       return true;
@@ -65,6 +59,7 @@ export const registerRequest = async (registerForm) => {
     });
     console.log(document.cookie);
 
+    console.log(response);
     if (response.ok) {
       console.log("Cookie set successfully:");
     } else {
@@ -101,6 +96,6 @@ export const verifyRequest = async (otp) => {
     return false;
   }
 };
-export const jwtRequest = () =>{
+export const jwtRequest = () => {
   return clearCookie("accessToken");
 }

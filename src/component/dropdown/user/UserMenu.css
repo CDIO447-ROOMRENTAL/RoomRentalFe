@@ -1,0 +1,62 @@
+/* UserMenu.css */
+.custom-user-menu {
+    display: flex;
+    justify-content: center;
+    height: 55px;
+    position: relative;
+}
+
+.custom-user-menu button {
+    background: none;
+    color: #fff;
+    cursor: pointer;
+    width: 55px;
+    height: 55px;
+    margin: 0px;
+    border-radius: 50%;
+    padding: 0px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.custom-user-menu button img {
+    margin: 0px;
+    border-radius: 50%;
+    padding: 0px;
+}
+
+.custom-user-menu .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0px;
+    z-index: 1;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 5px;
+    padding: 10px;
+}
+
+.custom-user-menu:hover .dropdown-content {
+    display: block;
+}
+
+.custom-user-menu .dropdown-content a {
+    width: 120px;
+    height: 40px;
+    color: #333;
+    padding: 0px 20px;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    line-height: 40px;
+    margin: 0px;
+}
+
+.custom-user-menu .dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* .custom-user-menu:hover .dropdown-content {
+  display: block;
+} */

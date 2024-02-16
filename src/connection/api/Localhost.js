@@ -8,8 +8,11 @@ export const auth = {
   register: `${server}/auth/signUp`,
   verify: `${server}/auth/verify`
 };
-export const cookie= {
-  get:`${server}/cookie/get`,
-  set:`${server}/cookie/set`,
-  clear:`${server}/cookie/clear`
+export const cookie = {
+  get: `${server}/cookie/get`,
+  set: `${server}/cookie/set`,
+  clear: `${server}/cookie/clear`
 }
+export const profile = {
+  profile: `${server}/user/getProfile`
+};

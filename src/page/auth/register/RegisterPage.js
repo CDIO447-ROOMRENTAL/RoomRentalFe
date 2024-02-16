@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { registerRequest } from "../../../store/redux/auth/AuthRequest";
-import Verify from "../verify/Verify";
+import Verify from "../verify/VerifyPage";
 import "./RegisterPage.css";
+import { Link } from "react-router-dom";
+import Dialog from "../../../component/dialog/Dialog";
+import Logo from "../../../assets/logo/Logo";
+
 const configToast = {
   autoClose: 3000,
   hideProgressBar: false,
@@ -10,6 +14,7 @@ const configToast = {
   pauseOnHover: false,
   draggable: true,
 };
+
 function RegisterPage() {
   const [registerForm, setRegisterForm] = useState({
     name: "",
@@ -25,7 +30,7 @@ function RegisterPage() {
     });
   };
 
-  const handleRegister = async () => {
+  const handleRegisterAndOpenModal = async () => {
     const response = await registerRequest(registerForm);
     if (response) {
       toast.success("Register successful!", configToast);
@@ -35,12 +40,27 @@ function RegisterPage() {
         configToast
       );
     }
+
+    openModal();
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
-    <div>
-      {/* <ToastContainer /> */}
-      <form>
+    <div className="register-container">
+      <form className="register-form">
+        <Link to={"/"} className='logo-container'>
+          <Logo></Logo>
+        </Link>
+        <h1>Register</h1>
         <div>
           <span>Name</span>
           <input
@@ -78,15 +98,22 @@ function RegisterPage() {
           />
         </div>
         <div>
-          <button onClick={handleRegister} type="button">
+          <button onClick={handleRegisterAndOpenModal} type="button">
             Submit
           </button>
         </div>
+        <Link to={"/auth/login"}>I already have an account</Link>
       </form>
-      <div>
-        <Verify></Verify>
-      </div>
+      <Dialog
+        isOpen={isModalOpen} onRequestClose={closeModal}
+        title="Confirm OTP" customStyles={{
+          content: { maxWidth: '500px', height: '200px' },
+          title: { textAlign: 'center' }
+        }}>
+        <Verify />
+      </Dialog>
     </div>
   );
 }
+
 export default RegisterPage;

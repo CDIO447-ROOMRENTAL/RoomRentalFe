@@ -1,0 +1,143 @@
+/* Profile.css */
+
+/* Common styles for both left and right containers */
+.profile-container {
+  display: flex;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.left-container {
+  width: 30%;
+  align-items: center;
+  justify-content: center; /* Centering content vertically */
+
+}
+.left-container,
+.right-container {
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+  align-items: center;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+}
+
+/* Styles for the left container */
+.left-container .avatar-container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+}
+
+.left-container .avatar-container .avatar {
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.left-container .text-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.left-container .text-container .txt-username {
+  display: block;
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.left-container .text-container .txt-email {
+  display: block;
+  font-style: italic;
+}
+
+.left-container .button-container .btn-update {
+  margin-top: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  font-size: 16px;
+}
+
+/* Styles for the right container */
+.right-container {
+  width: 70%;
+}
+
+.right-container .form-container {
+  padding: 30px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.right-container .form-container h2{
+  text-align: center;
+}
+
+.right-container .form-container .input-container {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.right-container .form-container .input-container .label-input-tite {
+  font-size: 18px;
+  margin-bottom: 5px;
+  width: 120px;
+}
+
+.right-container .form-container .input-container .input-style {
+  font-size: 16px;
+  width: 100%;
+  padding: 8px;
+  height: 40px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  text-align: left; /* Align text left for input */
+}
+
+.right-container .form-container .input-container .checkbox-container {
+  display: flex;
+}
+
+.right-container .form-container .input-container .checkbox-container .input-checkbox-container {
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.right-container .form-container .input-container .checkbox-container .input-checkbox-container .checkbox {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.right-container .form-container .input-container .checkbox-container .input-checkbox-container .nested-label {
+  font-size: 16px;
+}
+
+.right-container .form-container .button-container {
+  margin-top: 20px;
+}
+
+.right-container .form-container .button-container .btn-update {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  font-size: 16px;
+}

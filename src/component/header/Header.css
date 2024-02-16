@@ -1,0 +1,66 @@
+.header-container {
+    display: flex;
+    box-sizing: border-box;
+    background-color: rgb(197, 195, 195);
+    padding: 0px 20px;
+}
+
+.header-container .nav-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    height: 80px;
+}
+
+.header-container .nav-container .logo-container {
+    display: flex;
+    height: 100%;
+    width: 120px;
+    margin: 0px 10px;
+}
+
+.header-container .nav-container .nav-links-container {
+    display: flex;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.nav-container .nav-links-container .nav-link {
+    color: white;
+    height: 100%;
+    width: 120px;
+    cursor: pointer;
+    line-height: 80px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.nav-container .nav-links-container .nav-link:hover {
+    background-color: rgb(206, 204, 204);
+}
+
+.nav-container .nav-links-container .auth-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    margin: 0px 20px;
+    font-weight: 400;
+    text-decoration: none;
+    color: cadetblue;
+}
+
+.nav-container .nav-links-container .auth-container .login-register-container {
+    display: flex;
+    margin: 0px 20px;
+    font-weight: 400;
+    text-decoration: none;
+    color: cadetblue;
+    line-height: 80px;
+    justify-content: center;
+}
+
+.nav-links-container .auth-container a {
+    text-decoration: none;
+    margin: 0px 5px;
+}

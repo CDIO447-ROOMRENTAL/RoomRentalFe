@@ -1,0 +1,85 @@
+/* Style for the entire login container */
+.loginForm-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style for the login form */
+.loginForm-container .loginForm {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin: 20px;
+}
+
+.loginForm-container .loginForm .logo-container {
+    display: block;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 200px;
+}
+
+/* Style for the form title */
+.loginForm-container .loginForm .label-title {
+    font-size: 28px;
+    margin: 0px;
+    color: #333;
+    text-align: center;
+}
+
+/* Style for form groups */
+.loginForm-container .loginForm .loginForm-input {
+    margin-bottom: 15px;
+}
+
+/* Style for labels */
+.loginForm-container .loginForm .loginFormLabel {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+/* Style for form inputs */
+.loginForm-container .loginForm input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Style for the login button */
+.loginForm-container .loginForm .loginFormButton {
+    width: 100%;
+    background-color: #3498db;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Style for the login button on hover */
+.loginForm-container .loginForm .loginFormButton:hover {
+    background-color: #2980b9;
+}
+
+/* Style for the "Create new account" link */
+.loginForm-container .loginForm a {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #3498db;
+    text-decoration: none;
+    font-size: 14px;
+}

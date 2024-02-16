@@ -6,7 +6,9 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { routes } from "./router/Routes";
 import store from "./store/redux/store/store";
+import ReactModal from "react-modal";
 
+ReactModal.setAppElement('#root');
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
