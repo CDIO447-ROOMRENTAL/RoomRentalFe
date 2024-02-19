@@ -1,34 +1,31 @@
+// ProfileSlice.js
 import { createSlice } from "@reduxjs/toolkit";
+
 const profileSlice = createSlice({
     name: "profile",
     initialState: {
-        profile: {
-            user: null,
-            isFetching: false,
-            error: false,
-            success: false,
-        },
+        user: null,
+        isFetching: false,
+        error: null,
     },
     reducers: {
         profileStart: (state) => {
-            state.profile.user = null;
-            state.profile.success = false;
-            state.profile.isFetching = true;
-            state.profile.error = false;
+            state.user = null;
+            state.isFetching = true;
+            state.error = null;
         },
         profileSuccess: (state, action) => {
-            state.profile.user = action.payload;
-            state.profile.isFetching = false;
-            state.profile.success = true;
-            state.profile.error = false;
+            state.user = action.payload;
+            state.isFetching = false;
+            state.error = null;
         },
-        profileFailed: (state) => {
-            state.profile.user = null;
-            state.profile.success = false;
-            state.profile.isFetching = false;
-            state.profile.error = true;
+        profileFailed: (state, action) => {
+            state.user = null;
+            state.isFetching = false;
+            state.error = action.payload; // Pass error message to state
         },
     }
 });
+
 export const { profileStart, profileSuccess, profileFailed } = profileSlice.actions;
 export default profileSlice.reducer;

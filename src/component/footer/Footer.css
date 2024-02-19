@@ -1,0 +1,72 @@
+.footer-container {
+    display: flex;
+    height: 300px;
+    width: 100%;
+    background-color: #333;
+    /* Dark background color */
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-container .txt-slogan {
+    width: 80%;
+    text-align: center;
+    color: #fff;
+    /* White text color */
+    font-size: 1.2rem;
+    /* Adjust font size */
+    line-height: 1.5;
+    /* Adjust line height */
+    margin-bottom: 20px;
+    /* Add some space between text and buttons */
+}
+
+.footer-container button {
+    background-color: #ff4500;
+    /* Orange button color */
+    color: #fff;
+    /* White button text color */
+    /* width: 120px; */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    /* Adjust font size */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    /* Smooth hover transition */
+}
+
+.footer-container button:hover {
+    background-color: #ff6600;
+    /* Darker orange on hover */
+}
+
+.icon-container {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* Add space between text and icons */
+}
+
+.icon-container div {
+    margin: 0 10px;
+    /* Add spacing between icons */
+}
+
+/* Styling for individual social media icons */
+.icon-container div svg {
+    color: #fff;
+    /* White icon color */
+    width: 30px;
+    height: 30px;
+    transition: color 0.3s ease;
+    /* Smooth color transition */
+}
+
+.icon-container div svg:hover {
+    color: #ff4500;
+    /* Orange icon color on hover */
+}

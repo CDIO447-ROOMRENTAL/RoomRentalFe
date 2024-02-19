@@ -28,6 +28,7 @@ const MapComponent = (props) => {
     setRestaurantLocations([
       { id: 1, name: 'Restaurant 1', location: { lat: 21.030, lng: 105.805 } },
       { id: 2, name: 'Restaurant 2', location: { lat: 21.025, lng: 105.810 } },
+      { id: 3, name: 'Restaurant 3', location: { lat: 21.500, lng: 105.810 } }
       // Add more restaurant locations as needed
     ]);
 

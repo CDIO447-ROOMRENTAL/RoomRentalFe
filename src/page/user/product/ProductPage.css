@@ -1,0 +1,19 @@
+.product-container{
+    box-sizing: border-box;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.product-container .product-contents {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.product-container .product-contents a{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.product-container .pagination-container{
+    display: flex;
+    justify-content: center;
+}
+

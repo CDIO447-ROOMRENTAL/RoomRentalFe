@@ -1,8 +1,11 @@
 import React from 'react'
 import "./AboutPage.css"
+import About from '../../../component/about/About'
 function AboutPage() {
   return (
-    <div>AboutPage</div>
+    <div>
+      <About></About>
+    </div>
   )
 }
 

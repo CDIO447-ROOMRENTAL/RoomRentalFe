@@ -10,9 +10,11 @@
 .left-container {
   width: 30%;
   align-items: center;
-  justify-content: center; /* Centering content vertically */
+  justify-content: center;
+  /* Centering content vertically */
 
 }
+
 .left-container,
 .right-container {
   display: flex;
@@ -26,10 +28,39 @@
 
 /* Styles for the left container */
 .left-container .avatar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 200px;
   height: 200px;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+}
+
+.left-container .avatar-container:hover .avatar {
+  opacity: 0.5;
+  cursor: pointer;
+  border: 2px solid #ff4500;
+}
+
+.left-container .avatar-container .btn-update-image {
+  display: none;
+  width: 100px;
+  position: absolute;
+  background-color: #ff4500;
+  border-radius: 5px;
+  justify-content: center;
+  z-index: 1;
+  text-align: center;
+  padding: 10px 0px;
+  color: white;
+}
+#upload-photo{
+  display: none;
+}
+
+.avatar-container:hover .btn-update-image {
+  display: block;
 }
 
 .left-container .avatar-container .avatar {
@@ -56,7 +87,7 @@
 
 .left-container .button-container .btn-update {
   margin-top: 20px;
-  background-color: #4caf50;
+  background-color: #9c9c9c;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -77,7 +108,8 @@
   margin: 0 auto;
   box-sizing: border-box;
 }
-.right-container .form-container h2{
+
+.right-container .form-container h2 {
   text-align: center;
 }
 
@@ -103,7 +135,8 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
-  text-align: left; /* Align text left for input */
+  text-align: left;
+  /* Align text left for input */
 }
 
 .right-container .form-container .input-container .checkbox-container {
@@ -128,10 +161,24 @@
 }
 
 .right-container .form-container .button-container {
+  display: flex;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .right-container .form-container .button-container .btn-update {
+  background-color: #3B71CA;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  font-size: 16px;
+  margin-right: 20px;
+}
+
+.right-container .form-container .button-container .btn-edit {
   background-color: #4caf50;
   color: white;
   padding: 10px 15px;
@@ -140,4 +187,19 @@
   cursor: pointer;
   width: 100px;
   font-size: 16px;
+  margin-right: 20px;
+
+}
+
+.right-container .form-container .button-container .btn-cancel {
+  background-color: #DC4C64;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  font-size: 16px;
+  margin-right: 20px;
+
 }

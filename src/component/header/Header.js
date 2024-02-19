@@ -11,7 +11,7 @@ function Header() {
     <div className='header-container'>
       <div className='nav-container'>
         <Link to={"/"} className='logo-container'>
-          <Logo style={{height:'100%',width:"120px"}}></Logo>
+          <Logo style={{height:'100%',width:"120px", color:"white"}}></Logo>
         </Link>
         <div className='nav-links-container'>
           <Link to={"/"} className='nav-link'>Home</Link>

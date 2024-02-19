@@ -6,7 +6,6 @@ import { loginFailed, loginStart, loginSuccess } from "./AuthSlice";
 export const loginRequest = async (dispatch, loginForm) => {
   try {
     dispatch(loginStart());
-    console.log(loginForm);
     const response = await fetch(`${auth.login}`, {
       method: 'POST',
       credentials: "include", // Include credentials to send cookies
