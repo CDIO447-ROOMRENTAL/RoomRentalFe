@@ -1,0 +1,51 @@
+.management-content-container {
+    display: flex;
+    min-height: 400px;
+    box-sizing: border-box;
+    width: calc(100% - 40px);
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.management-content-container .management-navigate {
+    background-color: #fff;
+    width: 300px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border-radius: 5px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.management-content-container .management-navigate a {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    width: calc(100% - 60px);
+    margin: 5px;
+    padding: 15px 20px;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.management-content-container .management-content {
+    background-color: #fff;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    width: calc(100% - 320px);
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.active-link {
+    background-color: grey;
+    color: #fff !important;
+    transition: background-color 0.3s ease;
+    /* Màu chữ cho liên kết được chọn */
+}
+
+.inactive-link {
+    background-color: transparent;
+    /* Màu nền khi liên kết không được chọn */
+}

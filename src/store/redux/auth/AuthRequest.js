@@ -17,22 +17,21 @@ export const loginRequest = async (dispatch, loginForm) => {
 
     if (response.ok) {
       const data = await response.json();
-      dispatch(
-        loginSuccess(data)
-      );
-
+      dispatch(loginSuccess(data));
       return true;
     } else {
-      dispatch(loginFailed());
-      console.error('Error:', response.statusText);
+      const errorMessage = await response.text();
+      dispatch(loginFailed(errorMessage));
+      console.error('Error:', response.status, errorMessage);
       return false;
     }
   } catch (error) {
-    dispatch(loginFailed());
-    console.error('Error:', error.message);
+    dispatch(loginFailed(error.message));
+    console.error('Network Error:', error.message);
     return false;
   }
 };
+
 
 export const logoutRequest = async (dispatch) => {
   try {

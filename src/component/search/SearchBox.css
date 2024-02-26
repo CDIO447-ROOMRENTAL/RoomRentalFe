@@ -1,0 +1,57 @@
+.search-container{
+    display: flex;
+    width: auto;
+    background-color: grey;
+    padding: 20px;
+    justify-content: center;
+}
+.search-container .search-box-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.search-container .search-box-container .search-box #search{
+    width: 450px;
+}
+
+.search-container .search-box-container .search-box #searchAddress{
+    width: 300px;
+}
+
+.search-container .search-box-container .search-box input{
+    margin-right: 20px;
+}
+
+.search-container .search-box-container .filter-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.search-container .search-box-container .filter-container select{
+    padding: 5px;
+    border: none;
+    margin-right: 20px;
+    border-radius: 5px;
+    width: 160px;
+    outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+.search-container .button-container button{
+    height: 40px;
+    text-align: center;
+    padding: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}

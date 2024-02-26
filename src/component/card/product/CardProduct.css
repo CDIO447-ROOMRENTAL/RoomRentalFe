@@ -5,7 +5,7 @@
     /* Đặt viền cho thẻ card */
     border-radius: 5px;
     /* Đặt viền cong cho thẻ card */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
     /* Đặt bóng cho thẻ card */
     overflow: hidden;
     /* Ngăn việc nội dung tràn ra ngoài thẻ card */

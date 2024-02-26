@@ -1,0 +1,90 @@
+.list-product-container {
+    max-width: calc(100% - 40px);
+    margin: 20px;
+    box-sizing: border-box;
+}
+
+.list-product-container .title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.list-product-container .search-product-container {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+
+.list-product-container .search-product-container input {
+    max-width: 320px;
+    height: 30px;
+    border-radius: 0px;
+}
+
+.list-product-container .search-product-container button {
+    max-width: 120px;
+    height: 30px;
+    border-radius: 5px;
+    padding: 0px 20px;
+    background-color: #ff4500;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.table-wrapper {
+    position: relative;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+}
+
+.table th,
+.table td {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table th {
+    background-color: gray;
+    font-weight: bold;
+    color: #fff;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table th:last-child,
+.table td:last-child {
+    background-color: rgb(206, 205, 205);
+    border: 1px solid #ddd;
+    position: sticky;
+    right: 0;
+    /* z-index: 1; */
+    padding-right: 20px;
+
+}
+
+.table th:last-child {
+    background-color: gray;
+    text-align: center;
+}
+
+.table td:last-child:hover {
+    cursor: pointer;
+}
+
+.pagination-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}

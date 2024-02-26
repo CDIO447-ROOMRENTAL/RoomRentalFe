@@ -15,15 +15,16 @@ function Header() {
         </Link>
         <div className='nav-links-container'>
           <Link to={"/"} className='nav-link'>Home</Link>
-          <Link to={"product"} className='nav-link'>Product</Link>
-          <Link to={"about"} className='nav-link'>About</Link>
+          <Link to={"/product"} className='nav-link'>Product</Link>
+          <Link to={"/about"} className='nav-link'>About</Link>
           <Link to={"/contact"} className='nav-link'>Contact</Link>
 
           <div className='auth-container'>
             {
               auth ? (
 
-                <UserMenu></UserMenu>
+                <UserMenu url={auth?.avatar}></UserMenu>
+                
               ) : (
                 <div className='login-register-container'>
                   <Link to={"/auth/login"}>Login</Link> /

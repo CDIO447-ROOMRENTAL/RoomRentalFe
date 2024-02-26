@@ -12,6 +12,11 @@ import MyContract from "../page/user/contract/MyContract";
 import AboutPage from "../page/user/about/AboutPage";
 import ContactPage from "../page/user/contact/ContactPage";
 import MyFavouritePage from "../page/user/favourite/MyFavouritePage";
+import Management from "../page/management/Management";
+import ProductManagementPage from "../page/management/product/ProductManagementPage";
+import ListProduct from "../component/manager/product/list/ListProduct";
+import CreateProduct from "../component/manager/product/create/CreateProduct";
+import UpdateProduct from "../component/manager/product/update/UpdateProduct";
 
 export const routes = createBrowserRouter([
   {
@@ -49,6 +54,35 @@ export const routes = createBrowserRouter([
       },
       
     ],
+  },{
+    path: "/management",
+    element: <Management></Management>,
+    errorElement: <Error404></Error404>,
+    children: [
+      {
+        path: "product",
+        element: <ProductManagementPage></ProductManagementPage>,
+        children:[
+          {
+            path: "",
+            element: <ListProduct></ListProduct>
+          },
+          {
+            path: "create",
+            element: <CreateProduct></CreateProduct>
+          }
+          ,
+          {
+            path: "update",
+            element: <UpdateProduct></UpdateProduct>
+          }
+        ]
+      },
+      {
+        path:"contract",
+        element: <ProductManagementPage></ProductManagementPage>
+      }
+    ]
   },
   {
     path: "/auth",

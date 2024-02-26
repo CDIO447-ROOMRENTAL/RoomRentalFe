@@ -6,7 +6,7 @@ function CardProduct({product}) {
       <img src={product?.image||urlImage}></img>
       <div className='card-content-text'>
         <h3>{product?.title||"product"}</h3>
-        <p>price: {product?.price||"1000"}</p>
+        <p>price: {product?.price||"1000000"}</p>
       </div>
     </div>
   )

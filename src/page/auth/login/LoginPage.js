@@ -1,44 +1,46 @@
-import React, {useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest } from '../../../store/redux/auth/AuthRequest';
 import "./LoginPage.css"
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../../assets/logo/Logo';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const LoginPage = () => {
   const dispatch = useDispatch();
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
   const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
+  const isLogin = useSelector((state) => state?.auth?.login); // Moved useSelector outside useEffect
+
   const handleChange = (event) => {
     setLoginForm({
       ...loginForm,
       [event.target.name]: event.target.value,
     });
-
   };
+
   const handleLogin = async () => {
     try {
       const response = await loginRequest(dispatch, loginForm);
-      navigate("../../");
+      if (response) {
+        toast.success('Login successful!');
+        navigate("../../")
+      } else {
+        toast.error('Login failed..');
+      }
+      // Đăng nhập thành công, hiển thị thông báo
     } catch (error) {
       console.error('Error during login:', error.message);
       setLoginError('Login failed. Please check your credentials.');
+      // Đăng nhập thất bại, hiển thị thông báo lỗi
     }
   };
 
-  // const handleCookie = async () => {
-  //   try {
-  //     const response = await getCookie('accessToken');
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error('Error getting cookie:', error.message);
-  //     // Handle the case when the cookie is not found more gracefully
-  //     setLoginError('Cookie not found.');
-  //   }
-  // };
-
   return (
     <div className="loginForm-container">
+      <ToastContainer />
       <form className="loginForm">
         <Link to={"/"} className='logo-container'>
           <Logo></Logo>
