@@ -1,34 +1,36 @@
 .card-product {
-    width: 300px;
-    /* Đặt chiều rộng của thẻ card */
+    width: 300px; /* Set your desired width */
+    height: 400px; /* Set your desired height */
     border: 1px solid #ccc;
-    /* Đặt viền cho thẻ card */
-    border-radius: 5px;
-    /* Đặt viền cong cho thẻ card */
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
-    /* Đặt bóng cho thẻ card */
-    overflow: hidden;
-    /* Ngăn việc nội dung tràn ra ngoài thẻ card */
-}
-
-.card-product img {
-    width: 100%;
-    /* Đảm bảo hình ảnh bên trong thẻ card chiếm toàn bộ chiều rộng */
-    height: auto;
-    /* Đảm bảo tỷ lệ khung hình ảnh không bị bóp méo */
-}
-
-.card-content-text {
-    padding: 20px;
-    /* Tạo khoảng cách giữa nội dung và viền của thẻ card */
-}
-
-.card-content-text h3 {
+    border-radius: 8px;
+    overflow: hidden; /* Ensure content doesn't overflow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better visual */
+    margin: 10px; /* Add some margin for spacing */
+    text-decoration: none;
+    color: black;
+  }
+  
+  .card-product img {
+    width: 100%; /* Make the image fill the card horizontally */
+    height: 200px; /* Set your desired height */
+    object-fit: cover; /* Ensure the image covers the entire space */
+  }
+  
+  .card-content-text {
+    padding: 10px;
+  }
+  
+  .card-content-text h3 {
     margin-top: 0;
-    /* Loại bỏ khoảng cách trên của tiêu đề */
-}
-
-.card-content-text p {
+    margin-bottom: 5px;
+  }
+  
+  .card-content-text p {
     margin: 0;
-    /* Loại bỏ khoảng cách xung quanh của đoạn văn */
-}
+    margin: 10px 0px;
+  }
+  
+  .card-content-text p b {
+    color: #333;
+  }
+  

@@ -17,6 +17,10 @@ import ProductManagementPage from "../page/management/product/ProductManagementP
 import ListProduct from "../component/manager/product/list/ListProduct";
 import CreateProduct from "../component/manager/product/create/CreateProduct";
 import UpdateProduct from "../component/manager/product/update/UpdateProduct";
+import RoomPage from "../page/user/product/room/RoomPage";
+import ListRoom from "../component/manager/room/listRoom/ListRoom";
+import CreateRoom from "../component/manager/room/createRoom/CreateRoom";
+import DetailRoom from "../component/manager/room/detailRoom/DetailRoom";
 
 export const routes = createBrowserRouter([
   {
@@ -52,9 +56,9 @@ export const routes = createBrowserRouter([
         path: "my-favourite",
         element: <MyFavouritePage></MyFavouritePage>,
       },
-      
+
     ],
-  },{
+  }, {
     path: "/management",
     element: <Management></Management>,
     errorElement: <Error404></Error404>,
@@ -62,7 +66,7 @@ export const routes = createBrowserRouter([
       {
         path: "product",
         element: <ProductManagementPage></ProductManagementPage>,
-        children:[
+        children: [
           {
             path: "",
             element: <ListProduct></ListProduct>
@@ -70,16 +74,34 @@ export const routes = createBrowserRouter([
           {
             path: "create",
             element: <CreateProduct></CreateProduct>
-          }
-          ,
+          },
           {
-            path: "update",
-            element: <UpdateProduct></UpdateProduct>
-          }
+            path: "detail/:id",
+            element: <UpdateProduct />,
+          },
+          {
+            path: "detail/:id/room",
+            element: <RoomPage />,
+            children:
+              [
+                {
+                  path: "",
+                  element: <ListRoom />
+                }, 
+                {
+                  path: "create",
+                  element: <CreateRoom />
+                },
+                {
+                  path: "update/:roomID",
+                  element: <DetailRoom />
+                }
+              ]
+          },
         ]
       },
       {
-        path:"contract",
+        path: "contract",
         element: <ProductManagementPage></ProductManagementPage>
       }
     ]

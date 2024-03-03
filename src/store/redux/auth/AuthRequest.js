@@ -3,6 +3,7 @@ import { auth } from "../../../connection/api/Localhost";
 import { clearCookie, setCookie } from "../../httponly/Cookie";
 import { loginFailed, loginStart, loginSuccess } from "./AuthSlice";
 
+// Export loginRequest separately
 export const loginRequest = async (dispatch, loginForm) => {
   try {
     dispatch(loginStart());
@@ -31,7 +32,6 @@ export const loginRequest = async (dispatch, loginForm) => {
     return false;
   }
 };
-
 
 export const logoutRequest = async (dispatch) => {
   try {

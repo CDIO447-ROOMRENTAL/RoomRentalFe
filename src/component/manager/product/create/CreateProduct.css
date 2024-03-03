@@ -31,6 +31,7 @@
 
 .create-product-container .form-container select {
     width: 100%;
+    height: 35px;
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -50,4 +51,8 @@
     border: none;
     border-bottom: 1px solid #ccc;
     border-radius: 0;
+}
+
+.create-product-container .cproduct-btn {
+    margin-top: 20px;
 }

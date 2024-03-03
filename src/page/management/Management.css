@@ -49,3 +49,27 @@
     background-color: transparent;
     /* Màu nền khi liên kết không được chọn */
 }
+
+.btn-open-close-menu {
+    display: block;
+    padding: 5px;
+    background-color: #ff6600;
+    border: 2px solid #ad4500;
+    border-radius: 50%;
+    color: #fff;
+    align-items: center;
+    text-align: center;
+}
+
+.btn-close-menu {
+    height: 15px;
+    width: 15px;
+}
+
+.btn-open-menu {
+    position: fixed;
+    height: 15px;
+    width: 15px;
+    transform: scaleX(-1);
+    top: 125px;
+}

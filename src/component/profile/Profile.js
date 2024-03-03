@@ -55,7 +55,6 @@ function Profile() {
                 `images/${Date.now()}_${fileAvatar?.name}`
             );
 
-            console.log(storageRef);
             if (fileAvatar) {
                 const url = await FirebaseFileUploader(fileAvatar, storageRef);
                 if (profile?.avatar) {

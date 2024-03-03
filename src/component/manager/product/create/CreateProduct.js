@@ -1,63 +1,120 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./CreateProduct.css";
 import DropUploadImage from '../../../image/upload/DropUploadImage';
+import TextEditor from '../../../editor/TextEditor';
+import { useDispatch, useSelector } from 'react-redux';
+import { categoriesRequest, createProductRequest } from '../../../../store/redux/product/ProductRequest'; // Import createProductRequest
+import Select from 'react-dropdown-select';
+import { ToastContainer, toast } from 'react-toastify';
+import FirebaseFileUploader from '../../../image/firebase/FirebaseFileUploader'
+import { storage } from '../../../image/firebase/firebaseConfig';
+import { ref } from "firebase/storage";
+import { type } from '@testing-library/user-event/dist/type';
+
+const styleEditor = {
+  width: "100%",
+  minHeight: "250px"
+};
 
 function CreateProduct() {
-  const [form, setForm] = useState({
-    title: null,
-    description: null,
-    location: null,
-    category: null,
-    images: [],
-    categories: []
-  });
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state?.products?.categories?.data);
+  const user = useSelector((state) => state?.auth?.login?.user)
+  const jwt = user?.accessToken;
 
   const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    categoriesRequestMethod();
+  }, [dispatch]);
+
+  const categoriesRequestMethod = async () => {
+    categoriesRequest(dispatch)
+  };
+
+  const [form, setForm] = useState({
+    title: '',
+    description: '',
+    location: null,
+    address: '',
+    categories: [],
+    images: [],
+  });
 
   const handleUploadedImages = (images) => {
     setFiles(images);
   };
 
-  const handleSubmit = () => {
-    console.log(form);
+  const handleSubmit = async () => {
+    const urls = await uploadImages(files, "product");
+    const newUrls = urls?.map(url => ({ url }));
+    const newForm = { ...form, images: newUrls };
+
+    try {
+      const success = await createProductRequest(newForm, dispatch, jwt);
+      if (success) {
+        toast.success("Create new product success");
+      } else {
+        toast.error("Create new product failed");
+      }
+    } catch (error) {
+      toast.error("An error occurred while creating a product");
+    }
   };
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
-
-    if (name === 'category') {
-      // change giá trị đã tồn tại
-      setForm(prevState => ({
-        ...prevState,
-        categories: [e.value]
-      }));
-    } else {
-      setForm(prevState => ({
-        ...prevState,
-        [name]: value
-      }));
-    }
+    setForm(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
+
+  const onChangeEditor = (value) => {
+    setForm(prevState => ({
+      ...prevState,
+      description: value
+    }));
+  };
+
+  const uploadImages = async (files, folderName) => {
+    const urls = [];
+    for (const element of files) {
+      const storageRef = ref(
+        storage,
+        `${folderName}/${Date.now()}_${element?.name}`
+      );
+      try {
+        const url = await FirebaseFileUploader(element.data, storageRef);
+        urls.push(url);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+
+    return urls;
+  };
+
   return (
     <div className='create-product-container'>
+      <ToastContainer></ToastContainer>
       <span className='title'>Create product</span>
-      <DropUploadImage size={10} datasCallback={handleUploadedImages}/>
+      <DropUploadImage size={5} datasCallback={handleUploadedImages} imageDatas={[]} imageDatasCallback={() => { }} />
       <form className='form-container'>
         <label htmlFor="title">Title</label>
-        <input name='title' id='title' onChange={handleChangeInput}></input>
-        <label htmlFor='location'>Location</label>
-        <input name='location' id='location' onChange={handleChangeInput}></input>
+        <input name='title' id='title' onChange={handleChangeInput} value={form.title}></input>
+        <label htmlFor='address'>Address</label>
+        <input name='address' id='address' onChange={handleChangeInput} value={form.address}></input>
+        <label htmlFor='categories'>Categories</label>
+        <div style={{ marginBottom: "10px" }}>
+          <Select multi options={categories || []} labelField="name" valueField="id" onChange={(values) => setForm(prevState => ({ ...prevState, categories: values }))} values={form.categories || []} />
+        </div>
         <label htmlFor='description'>Description</label>
-        <input name='description' id='description' onChange={handleChangeInput}></input>
-        <label htmlFor='category'>Category</label>
-        <select className='select' name='category' onChange={handleChangeInput}>
-          <option className='option' value="1">1</option>
-          <option className='option' value="2">2</option>
-          <option className='option' value="3">3</option>
-          <option className='option' value="4">4</option>
-        </select>
+        <TextEditor value={form.description} onChange={onChangeEditor} style={styleEditor} />
       </form>
-      <button type='button' onClick={handleSubmit}>Submit</button>
+      <div className="button-container" style={{ display: "flex", justifyContent: "end" }}>
+        <button type='button' onClick={handleSubmit} className='cproduct-btn'>Submit</button>
+      </div>
     </div>
   );
 }

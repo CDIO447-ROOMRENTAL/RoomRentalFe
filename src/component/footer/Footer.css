@@ -23,7 +23,7 @@
     /* Add some space between text and buttons */
 }
 
-.footer-container button {
+.footer-container .btn-top-footer {
     background-color: #ff4500;
     /* Orange button color */
     color: #fff;
@@ -31,6 +31,7 @@
     /* width: 120px; */
     padding: 10px 20px;
     border: none;
+    width: 150px;
     border-radius: 5px;
     font-size: 1rem;
     /* Adjust font size */
@@ -39,7 +40,7 @@
     /* Smooth hover transition */
 }
 
-.footer-container button:hover {
+.footer-container .btn-top-footer:hover {
     background-color: #ff6600;
     /* Darker orange on hover */
 }

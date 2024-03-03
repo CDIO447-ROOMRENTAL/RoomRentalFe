@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './DropUploadImage.css'; // Import CSS for styling
 
-function DropUploadImage({ size = 1, datasCallback}) {
+function DropUploadImage({ size = 1, datasCallback, imageDatas = [], disabled = false, imageDatasCallback = [] }) {
     const [images, setImages] = useState([]);
     const [imageIdCounter, setImageIdCounter] = useState(0); // Counter to generate unique identifiers for images
     const fileInputRef = useRef(null); // Reference to the file input element
+    const [imageDatasInput, setImageDatasInput] = useState(imageDatas);
 
+
+    console.log(imageDatas);
     // Function to handle file drop
     const handleDrop = (e) => {
         e.preventDefault();
@@ -29,7 +32,7 @@ function DropUploadImage({ size = 1, datasCallback}) {
     };
 
     // Function to handle files
-    const handleFiles = (files) => {
+    const handleFiles = async (files) => {
         // Create an array to store promises for each image
         const promises = [];
 
@@ -53,14 +56,17 @@ function DropUploadImage({ size = 1, datasCallback}) {
                         new Promise((resolve) => {
                             // Set up onload event handler for the FileReader
                             reader.onload = () => {
-                                // When the reader finishes loading the file, resolve the promise with the result (image data URL)
-                                resolve({ id: imageIdCounter + i, data: reader.result, name: file.name, size: file.size }); // Assign a unique id to each image
+                                // Convert the data to a Blob object
+                                const blob = new Blob([reader.result], { type: file.type });
+
+                                // Resolve the promise with the Blob object
+                                resolve({ id: imageIdCounter + i, data: blob, name: file.name, size: file.size }); // Assign a unique id to each image
                             };
                         })
                     );
 
-                    // Start reading the file as a data URL
-                    reader.readAsDataURL(file);
+                    // Start reading the file
+                    reader.readAsArrayBuffer(file);
                 }
             }
         }
@@ -70,10 +76,11 @@ function DropUploadImage({ size = 1, datasCallback}) {
 
         // Wait for all promises to resolve
         Promise.all(promises).then((imageResults) => {
-            // Once all promises have resolved, set the state with the array of image data URLs
+            // Once all promises have resolved, set the state with the array of image data
             setImages([...images, ...imageResults]);
         });
     };
+
 
     // Function to handle removing an image by its unique id
     const handleRemoveImage = (id) => {
@@ -81,13 +88,25 @@ function DropUploadImage({ size = 1, datasCallback}) {
         setImages(newImages); // Update the images state
     };
 
+    const handleRemoveDataRemove = (id) => {
+        // Lọc ra mảng mới không bao gồm đối tượng có id tương ứng
+        const newDataInput = imageDatasInput.filter((image) => image.id !== id);
+        // Cập nhật lại state với mảng mới đã được lọc
+        setImageDatasInput(newDataInput);
+    };
+
+
     useEffect(() => {
         // Thông báo ra ngoài thông qua hàm callback được truyền từ component cha
         datasCallback(images);
     }, [images, datasCallback]);
 
+    useEffect(() => {
+        imageDatasCallback(imageDatasInput);
+    }, [imageDatasInput, imageDatasCallback])
+
     return (
-        <div className='drop-upload-container'>
+        <div className='drop-upload-container' style={{ backgroundColor: disabled ? "#FAFAFA" : "white", opacity: disabled ? "0.5" : "1", pointerEvents: disabled ? "none" : "", }}>
             <div className="drop-upload-box-container" onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}>
                 {/* Input element for file selection */}
                 <input type="file" accept="image/*" onChange={handleFileSelect} multiple className="file-input" id="input-image" ref={fileInputRef} />
@@ -95,17 +114,25 @@ function DropUploadImage({ size = 1, datasCallback}) {
                 <label className="upload-placeholder" htmlFor="input-image">Drop images here or click to upload</label>
             </div>
             {/* Container to preview uploaded images */}
-            <div className={`image-preview-container`}>
-                {/* Map through images array and display each image */}
+            <div className={`image-preview-container`} disabled>
+                {imageDatasInput?.map((image) => (
+                    <div key={image.id} className="uploaded-image-container">
+                        <img src={image.url} alt={`Uploaded ${image.id}`} className="uploaded-image" />
+                        <a onClick={() => handleRemoveDataRemove(image.id)} className="remove-image-button">X</a>
+                    </div>
+                ))}
+
                 {images.map((image) => (
                     <div key={image.id} className="uploaded-image-container">
-                        <img src={image.data} alt={`Uploaded ${image.id}`} className="uploaded-image" />
+                        {/* Use URL.createObjectURL to generate a URL for each Blob object */}
+                        <img src={URL.createObjectURL(image.data)} alt={`Uploaded ${image.id}`} className="uploaded-image" />
                         <a onClick={() => handleRemoveImage(image.id)} className="remove-image-button">X</a>
                     </div>
                 ))}
             </div>
         </div>
     );
+
 }
 
 export default DropUploadImage;

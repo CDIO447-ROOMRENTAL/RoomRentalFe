@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './SearchBox.css';
+import { categoriesRequest } from '../../store/redux/product/ProductRequest';
 
 function SearchBox({ onSearch }) {
     const [searchForm, setSearchForm] = useState({
@@ -10,6 +12,16 @@ function SearchBox({ onSearch }) {
         sortPrice: '',
         sortDate: ''
     });
+    const dispatch = useDispatch();
+    const categories = useSelector((state) => state?.products?.categories?.data);
+
+    useEffect(() => {
+        categoriesRequestMethod();
+    }, [dispatch]);
+
+    const categoriesRequestMethod = async () => {
+        categoriesRequest(dispatch)
+    };
 
     const handleSubmit = () => {
         onSearch(searchForm);
@@ -47,9 +59,10 @@ function SearchBox({ onSearch }) {
                 </div>
                 <div className='filter-container' >
                     <select name='category' value={searchForm.category} onChange={handleSearchChange}>
-                        <option value="">Category</option>
-                        <option value="motel">Motel</option>
-                        <option value="penthouse">Penthouse</option>
+                        <option value="">--Categories--</option>
+                        {categories && categories.map(category => (
+                            <option key={category.id} value={category.id}>{category.name}</option>
+                        ))}
                     </select>
                     <select name='price' value={searchForm.price} onChange={handleSearchChange}>
                         <option value="">Price</option>
