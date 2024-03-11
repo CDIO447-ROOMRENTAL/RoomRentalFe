@@ -297,12 +297,9 @@ export const roomUpdateRequest = async (dispatch, jwt, roomId, roomData) => {
     }
 };
 
-export const roomGetByIdRequest = async (dispatch, jwt, accommodationId, roomId) => {
+export const roomGetByIdRequest = async (dispatch ,jwt, accommodationId, roomId) => { // Remove dispatch from parameters
     try {
-        // Dispatch the action to indicate the start of the request
-        console.log({accommodationId, roomId});
         dispatch(getRoomByIdStart());
-        console.log(accommodationId,roomId);
 
         const response = await fetch(`http://localhost:8080/api/accommodation/room/getById?accommodationId=${accommodationId}&roomId=${roomId}`, {
             headers: {
@@ -319,10 +316,98 @@ export const roomGetByIdRequest = async (dispatch, jwt, accommodationId, roomId)
             return true;
         } else {
             dispatch(getRoomByIdFailed());
+            return false;
         }
     } catch (error) {
         // Dispatch the action to indicate failure and pass the error message
         dispatch(getRoomByIdFailed(error.message));
+        return false;
+    }
+};
+
+export const getPublicRoomsRequest = async (dispatch, accommodationId) => {
+    try {
+        // Dispatch action để thông báo bắt đầu quá trình lấy phòng
+        dispatch(getRoomsStart());
+
+        // Gửi yêu cầu lấy danh sách phòng đến server
+        const response = await fetch(`http://localhost:8080/api/accommodation/room/public/getRoomsByAccommodationId?accommodationId=${accommodationId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            // Nếu yêu cầu thành công, phân tích dữ liệu phản hồi
+            const data = await response.json();
+            // Dispatch action để thông báo lấy phòng thành công
+            dispatch(getRoomsSuccess(data));
+            return true;
+        } else {
+            // Nếu yêu cầu thất bại, dispatch action để thông báo lấy phòng không thành công
+            dispatch(getRoomsFailed());
+            console.error('Lỗi:', response.statusText);
+            return false;
+        }
+    } catch (error) {
+        // Nếu có lỗi xảy ra trong quá trình xử lý, dispatch action để thông báo lỗi
+        dispatch(getRoomsFailed());
+        console.error('Lỗi:', error.message);
+        return false;
+    }
+};
+
+export const getPriceMinMaxRoomsByAccommodationId = async (accommodationId) => {
+    try {
+        // Dispatch action để thông báo bắt đầu quá trình lấy phòng
+        // Gửi yêu cầu lấy danh sách phòng đến server
+        const response = await fetch(`http://localhost:8080/api/accommodation/room/public/getPriceMinMaxRoomsByAccommodationId?accommodationId=${accommodationId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            // Nếu yêu cầu thành công, phân tích dữ liệu phản hồi
+            const data = await response.json();
+            // Dispatch action để thông báo lấy phòng thành công
+            return data;
+        } else {
+            // Nếu yêu cầu thất bại, dispatch action để thông báo lấy phòng không thành công
+            console.error('Lỗi:', response.statusText);
+            return false;
+        }
+    } catch (error) {
+        console.error('Lỗi:', error.message);
+        return false;
+    }
+};
+
+export const getProductPublicByIdRequest = async (accommodationId, dispatch) => {
+    try {
+        dispatch(getProductByIdStart());
+
+        const response = await fetch(`http://localhost:8080/api/accommodation/public/getPublicAccommodationById?accommodationId=${accommodationId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(getProductByIdSuccess(data));
+            return true;
+        } else {
+            dispatch(getProductByIdFailed('Failed to get product by id.'));
+            console.error('Error:', response.statusText);
+            return false;
+        }
+    } catch (error) {
+        dispatch(getProductByIdFailed('Failed to get product by id. An error occurred.'));
+        console.error('Error:', error.message);
         return false;
     }
 };

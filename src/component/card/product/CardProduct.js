@@ -9,7 +9,7 @@ function CardProduct({ product }) {
       <img src={product?.image || urlImage}></img>
       <div className='card-content-text'>
         <h3>{product?.title || "product"}</h3>
-        <p><b>Price:</b> {product?.price || formatNumber(1000000)}</p>
+        <p><b>Price:</b> {formatNumber(product?.price?.minPrice || 0)} - {formatNumber(product?.price?.maxPrice || 0)}</p>
         <p><b>Address:</b> {product?.address || "Underfine"}</p>
       </div>
     </div>

@@ -21,6 +21,8 @@ import RoomPage from "../page/user/product/room/RoomPage";
 import ListRoom from "../component/manager/room/listRoom/ListRoom";
 import CreateRoom from "../component/manager/room/createRoom/CreateRoom";
 import DetailRoom from "../component/manager/room/detailRoom/DetailRoom";
+import ProductDetail from "../page/user/product/productDetail/ProductDetail";
+import Contract from "../page/user/contract/Contract";
 
 export const routes = createBrowserRouter([
   {
@@ -43,6 +45,14 @@ export const routes = createBrowserRouter([
       {
         path: "product",
         element: <ProductPage></ProductPage>,
+      },
+      {
+        path: "product/detail/:id",
+        element: <ProductDetail></ProductDetail>,
+      },
+      {
+        path: "contract/:id",
+        element: <Contract></Contract>,
       },
       {
         path: "about",

@@ -30,6 +30,7 @@ function Management() {
         setIsAdminOrPM(isAdminOrPM);
         if (!isAdminOrPM) {
             navigate('/auth/login');
+            window.localStorage.clear();
         }
     };
 

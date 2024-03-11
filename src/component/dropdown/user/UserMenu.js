@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./UserMenu.css";
-import { Link } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom';
 import { logoutRequest } from '../../../store/redux/auth/AuthRequest';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,17 +9,18 @@ function UserMenu({url}) {
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const user = useSelector((state) => state?.auth?.login?.user)
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+
     const handleButtonClick = () => {
         setDropdownVisible(!isDropdownVisible);
     };
 
-    // const handleLogout = () =>{
-    //     logoutRequest(dispatch);
-    // }
-
-    const handleLogin = () => {
-        // dispatch(undefined)
-    }
+    const handleLogout = () =>{
+        localStorage.clear();
+        navigate("/");
+        window.location.reload();
+    };
+    
     return (
         <div className="custom-user-menu">
             <button onClick={handleButtonClick}>
@@ -38,7 +39,7 @@ function UserMenu({url}) {
                         )
                     }
 
-                    <a href='/' onClick={handleLogin}>Logout</a>
+                    <a onClick={handleLogout}>Logout</a>
                 </div>
             )}
         </div>

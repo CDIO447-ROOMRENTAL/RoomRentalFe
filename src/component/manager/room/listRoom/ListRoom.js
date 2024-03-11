@@ -13,18 +13,18 @@ function ListRoom() {
   const user = useSelector((state) => state?.auth?.login?.user);
   const jwt = user?.accessToken;
 
-  useEffect(() => {
-    getRoomMethod();
-  }, [dispatch]);
-
-  const getRoomMethod = () => {
-    getRoomsRequest(dispatch, jwt, accommodationId, pageable.search, pageable.number);
-  };
-
   const [pageable, setPageable] = useState({
     number: 0,
     search: ""
   });
+
+  const getRoomMethod = async () => {
+    await getRoomsRequest(dispatch, jwt, accommodationId, pageable.search, pageable.number);
+  };
+
+  useEffect(() => {
+    getRoomMethod();
+  }, [dispatch, pageable]);
 
   const handlePageChange = (pageNumber) => {
     setPageable({

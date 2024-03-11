@@ -1,0 +1,30 @@
+.contract-container{
+    width: 100%;
+
+}
+.contract-container .form-container{
+    margin: 40px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    padding: 40px;
+    border-radius: 5px;
+}
+
+.select-input{
+    width: 100%;
+    outline: none;
+    height: 45px;
+    border-radius: 5px;
+    border-color: #CCCC;
+}
+.select-input .option-input{
+    padding: 20px;
+}
+
+.btn-container{
+    display: flex;
+    align-items: center;
+    margin: 40px;
+    height: 45px;
+    width: 100%;
+    align-content: center;
+}

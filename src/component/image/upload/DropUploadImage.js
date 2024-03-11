@@ -8,7 +8,6 @@ function DropUploadImage({ size = 1, datasCallback, imageDatas = [], disabled = 
     const [imageDatasInput, setImageDatasInput] = useState(imageDatas);
 
 
-    console.log(imageDatas);
     // Function to handle file drop
     const handleDrop = (e) => {
         e.preventDefault();

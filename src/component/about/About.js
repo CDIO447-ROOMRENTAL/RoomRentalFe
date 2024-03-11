@@ -135,7 +135,7 @@ function About() {
                             </div>
                         </div>
                     </li>
-                    <li>
+                    {/* <li>
                         <div class="card-client">
                             <div class="user-picture">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -173,7 +173,7 @@ function About() {
                                 </a>
                             </div>
                         </div>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </div>

@@ -12,34 +12,33 @@ import FirebaseFileDelete from '../../../image/firebase/FirebaseFileDelete';
 
 function DetailRoom() {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state?.auth?.login?.user);
+    const user = useSelector((state) => state?.auth?.login?.user)
     const jwt = user?.accessToken;
-    const room = useSelector((state) => state?.products?.productById?.rooms?.getRoomById?.data);
-    const id = useParams();
     const [statusUpdate, setStatusUpdate] = useState(false);
+    const id = useParams();
+    const room = useSelector((state) => state?.products?.productById?.room?.getRoomById?.data);
     const [files, setFiles] = useState([]);
-    const [formRoom, setFormRoom] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [form, setForm] = useState({});
 
     useEffect(() => {
-        getRoomByIdMethod();
-    }, [dispatch, id, jwt]);
+        if (!room) {
+            getProductByIdRequestMethod();
+        } else {
+            setLoading(false);
+        }
+    }, [dispatch, id, room]);
 
-    useEffect(() => {
-        setFormRoom(room);
-    }, [room]);
+    const getProductByIdRequestMethod = async () => {
+        setLoading(true);
+        await roomGetByIdRequest(dispatch, jwt, id.id, id.roomID);
+        // await setForm(room)
+        setLoading(false);
+    }
 
-    const getRoomByIdMethod = () => {
-        roomGetByIdRequest(dispatch, jwt, id.id, id.roomID);
-    };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormRoom({ ...formRoom, [name]: value });
-    };
-
-    const handleSelectChange = (e) => {
-        const { name, value } = e.target;
-        setFormRoom({ ...formRoom, [name]: parseInt(value) });
+    const handleUploadedImages = (images) => {
+        setFiles(images);
     };
 
     const handleSubmit = async () => {
@@ -49,8 +48,8 @@ function DetailRoom() {
                 return;
             }
 
-            const filteredImages = room.images.filter(productImage =>
-                !files.some(file => file.name === productImage.name)
+            const filteredImages = room.images.filter(image =>
+                !files.some(file => file.name === image.name)
             );
 
             for (const image of filteredImages) {
@@ -62,16 +61,15 @@ function DetailRoom() {
             }
 
             const urls = await uploadImages(files, "/product");
-            imageDatas?.map((value) => { urls.push(value.url) });
 
             const newUrls = urls.map(url => ({ url }));
 
-            const newForm = { ...formRoom, images: newUrls };
+            const newForm = { ...form, images: newUrls };
 
             const success = await roomUpdateRequest(dispatch, jwt, id.roomID, newForm);
 
             if (success) {
-                getRoomByIdMethod();
+                getProductByIdRequestMethod();
                 toast.success("Update product success");
             } else {
                 toast.error("Update product failed");
@@ -82,8 +80,16 @@ function DetailRoom() {
         }
     };
 
+    const handleChangeInput = (e) => {
+        const { name, value } = e.target;
+        setForm(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
     const onChangeEditor = (value) => {
-        setFormRoom(prevState => ({
+        setForm(prevState => ({
             ...prevState,
             description: value
         }));
@@ -91,6 +97,7 @@ function DetailRoom() {
 
     const uploadImages = async (files, folderName) => {
         const urls = [];
+
         for (const element of files) {
             const storageRef = ref(
                 storage,
@@ -103,33 +110,39 @@ function DetailRoom() {
                 console.error("Error uploading image:", error);
             }
         }
+
         return urls;
     };
 
-    const [imageDatas, setImageDatas] = useState();
-
+    const [imageDatas, setImageDatas] = useState()
     const imageDatasCallbackMethod = (value) => {
-        console.log(value);
         setImageDatas(value);
-    };
-    const handleUploadedImages = (images) => {
-        setFiles(images);
-    };
+    }
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className='div-room-container'>
-            <ToastContainer></ToastContainer>
+            <ToastContainer />
             <h3>Update Room</h3>
-            <DropUploadImage size={5} datasCallback={handleUploadedImages} disabled={!statusUpdate} imageDatas={room?.images || []} imageDatasCallback={imageDatasCallbackMethod} />
-            <form className='div-form-container' onSubmit={handleSubmit}>
+            <DropUploadImage
+                size={5}
+                datasCallback={handleUploadedImages}
+                disabled={!statusUpdate}
+                imageDatas={room?.images || []}
+                imageDatasCallback={imageDatasCallbackMethod}
+            />
+            <form className='div-form-container'>
                 <div className='div-input-container'>
                     <div style={{ width: "55%" }}>
                         <label>Number room</label>
-                        <input type='number' name='numberRoom' value={formRoom?.numberRoom || 0} min={1} onChange={handleInputChange} />
+                        <input type='number' name='numberRoom' value={form?.numberRoom || 0} min={1} onChange={handleChangeInput} disabled={!statusUpdate} />
                     </div>
                     <div style={{ width: "40%" }}>
                         <label>Floor</label>
-                        <select name='floor' onChange={handleSelectChange} value={formRoom?.floor}>
+                        <select name='floor' onChange={handleChangeInput} value={form?.floor || ''} disabled={!statusUpdate}>
                             {Array.from({ length: 100 }, (_, index) => (
                                 <option key={index + 1} value={index + 1}>{index + 1}</option>
                             ))}
@@ -138,50 +151,43 @@ function DetailRoom() {
                 </div>
                 <div>
                     <label>Price</label>
-                    <input type='number' name='price' onChange={handleInputChange} value={formRoom?.price || null} />
+                    <input type='number' name='price' onChange={handleChangeInput} value={form?.price || null} disabled={!statusUpdate} />
                 </div>
                 <div>
                     <label>Description</label>
-                    <TextEditor value={formRoom?.description || ""} onChange={onChangeEditor} />
+                    <TextEditor value={form?.description || ""} onChange={onChangeEditor} disabled={!statusUpdate} />
                 </div>
-            </form>
-            {
-                !statusUpdate && (
+                {statusUpdate && (
                     <button
                         type='button'
-                        onClick={() => setStatusUpdate(!statusUpdate)}
                         className='cproduct-btn'
-                        style={{ backgroundColor: "#28a745", width: "100px", marginRight: "20px" }} // Chọn màu xanh lam cho "Edit" và đỏ cho "Cancel"
-                    >
-                        Edit
-                    </button>
-                )
-            }
-            {
-                statusUpdate && (
-                    <button
-                        type='button'
-                        onClick={() => { setStatusUpdate(!statusUpdate); handleSubmit() }}
-                        className='cproduct-btn'
-                        style={{ backgroundColor: "#0033FF", width: "100px", marginRight: "20px" }} // Chọn màu xanh lam cho "Edit" và đỏ cho "Cancel"
+                        style={{ backgroundColor: "#0033FF", width: "100px", marginRight: "20px" }}
+                        onClick={handleSubmit}
                     >
                         Update
                     </button>
-                )
-            }
-
-            {
-                statusUpdate && (
-                    <button
-                        type='button'
-                        onClick={() => setStatusUpdate(!statusUpdate)}
-                        className='cproduct-btn'
-                        style={{ backgroundColor: "#dc3545", width: "100px", marginRight: "20px" }} // Chọn màu xanh lam cho "Edit" và đỏ cho "Cancel"
-                    >
-                        Cancel
-                    </button>
-                )
-            }
+                )}
+            </form>
+            {!statusUpdate && (
+                <button
+                    type='button'
+                    onClick={() => setStatusUpdate(!statusUpdate)}
+                    className='cproduct-btn'
+                    style={{ backgroundColor: "#28a745", width: "100px", marginRight: "20px" }}
+                >
+                    Edit
+                </button>
+            )}
+            {statusUpdate && (
+                <button
+                    type='button'
+                    onClick={() => setStatusUpdate(!statusUpdate)}
+                    className='cproduct-btn'
+                    style={{ backgroundColor: "#dc3545", width: "100px", marginRight: "20px" }}
+                >
+                    Cancel
+                </button>
+            )}
         </div>
     );
 }

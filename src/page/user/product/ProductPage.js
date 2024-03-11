@@ -6,7 +6,7 @@ import './ProductPage.css'
 import Pagination from '../../../component/pagination/Pagination';
 import SearchBox from '../../../component/search/SearchBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { producPublicRequest } from '../../../store/redux/product/ProductRequest';
+import { getPriceMinMaxRoomsByAccommodationId, producPublicRequest } from '../../../store/redux/product/ProductRequest';
 
 function ProductPage() {
   const dispatch = useDispatch();
@@ -27,8 +27,6 @@ function ProductPage() {
     productRequestMethod();
   }, [dispatch, pageableForm, searchForm]);
 
-
-
   const handleOnSearch = (searchForm) => {
     setSearchForm(searchForm);
   };
@@ -41,14 +39,46 @@ function ProductPage() {
     setPageableForm({ ...pageableForm, currentPage: newPage });
   };
 
-  console.log(searchForm);
+
+  const fetchPrices = async (productIds) => {
+    const pricesMap = {};
+    await Promise.all(productIds.map(async (productId) => {
+      try {
+        const price = await getPriceMinMaxRoomsByAccommodationId(productId);
+        pricesMap[productId] = price;
+      } catch (error) {
+        console.error("Error fetching price for product:", productId, error);
+        pricesMap[productId] = null;
+      }
+    }));
+    return pricesMap;
+  };
+
+  useEffect(() => {
+    if (products.content) {
+      fetchPrices(products.content.map(product => product.id))
+        .then(prices => {
+          setProductPrices(prices);
+        });
+    }
+  }, [products.content]);
+
+  const [productPrices, setProductPrices] = useState({});
+
   return (
     <div className='product-container'>
       <SearchBox onSearch={handleOnSearch}></SearchBox>
       <div className='product-contents'>
         {products?.content && products.content.map((product, index) => (
           <Link to={`/product/detail/${product?.id}`} key={index} style={{ textDecoration: "none", textAlign: "center" }}>
-            <CardProduct product={{ image: product?.images[0]?.url, title: product.title, address: product.address }} />
+            <CardProduct
+              product={{
+                image: product?.images[0]?.url,
+                title: product.title,
+                address: product.address,
+                price: productPrices[product.id] || null
+              }}
+            />
           </Link>
         ))}
       </div>

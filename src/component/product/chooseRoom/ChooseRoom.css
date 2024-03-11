@@ -1,0 +1,81 @@
+.choose-room-container {
+  display: block;
+  width: 100%;
+}
+
+.room-container {
+  border: 1px solid #dddddd;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 100%;
+  height: 200px;
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+.floor-container {
+  /* Add styles for the floor container */
+}
+
+.rooms-on-floor {
+  display: flex;
+}
+
+/* .room-item {
+  margin-right: 5px;
+} */
+
+.custom-radio-label {
+  display: inline-block;
+  padding: 5px 5px;
+  color: grey;
+  border: 2px solid transparent;
+  /* border-radius: 5px; */
+  cursor: pointer;
+  border: grey 1px solid;
+  margin: 0px;
+}
+
+.custom-radio-label input[type="radio"] {
+  display: none;
+}
+
+.custom-radio-label:hover {
+  color: white;
+  background-color: grey;
+}
+
+.choose-room-container .image-slide-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 150px;
+  /* Adjusted height */
+  width: 100%;
+  overflow: hidden;
+  /* Ensure overflow is hidden */
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+}
+
+.image-slide {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.btn-button {
+  margin-top: 10px;
+  padding: 10px 10px;
+  background: #ff6600;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-button:hover {
+  background: #ff6600;
+}
+
+.btn-button.disabled {
+  background: #ff6600; /* Keep the same background color for disabled state */
+  opacity: 0.5;
+}

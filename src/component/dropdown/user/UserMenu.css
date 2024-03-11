@@ -29,7 +29,7 @@
 .custom-user-menu .dropdown-content {
     display: none;
     position: absolute;
-    top: 100%;
+    top: 95%;
     right: 0px;
     z-index: 1;
     background-color: #fff;
